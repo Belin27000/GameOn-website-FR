@@ -12,11 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Pour chaque clique sur un élément ayant la class .btn, on lance la fonction closemodal
     closeBtn.forEach((btn) => btn.addEventListener("click", closeModal));
 
+
     validation();
 
   }
 
   init();
+
 
   //Fermeture modal en utilisant display="none"
   function closeModal() {
@@ -39,6 +41,42 @@ document.addEventListener("DOMContentLoaded", function () {
       x.className = "topnav";
     }
 
+  }
+
+  //confirmation d'inscription
+
+  function confirmRegistration() {
+    //stock dans la constante tout les élément ayant pour class "formData"
+    const formdata = document.querySelectorAll(".formData");
+
+    //Selection notre boutton "C'est parti/Fermer"
+    let sendmodalbtn = document.getElementById("sendmodal");
+
+    //change le texte du bouton en "Fermer"
+    btnchange = document.getElementById("sendmodal")
+    btnchange.value = "Fermer"
+
+    //Selection le p dans le formulaire, le modifie et le met en forme
+    textform = document.getElementById("thanks");
+    textform.innerHTML = "Merci pour <br> votre inscription";
+    textform.style.fontSize = "36px";
+    textform.style.position = "absolute";
+    textform.style.textAlign = "center"
+    textform.style.left = "0";
+    textform.style.right = "0";
+    textform.style.top = "40%";
+
+    //variable d'initialisation
+    i = 0
+    //Pour chaque div "formadata, je la masque"
+    for (i = 0; i < formdata.length; i++) {
+      formdata[i].style.visibility = "hidden"
+    }
+
+    //J'écoute mon boutton "Fermé" si on clique dessus, je lance "closeModal"
+    sendmodalbtn.addEventListener("click", function () {
+      closeModal()
+    })
   }
 
   // Controle avec regex
@@ -145,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   //On passe notre variable à 1 et on sort de la boucle
                   //Sinon on incrémente i dans notre boucle for et on recommence
                   a = 1;
-                  break;
+
                 }
 
               }
@@ -190,29 +228,27 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function validation() {
+
+
     let sendmodalbtn = document.getElementById("sendmodal");
+    const modalbg = document.querySelector(".formdisplay");
+    console.log(modalbg);
+    //document.getElementById("confirm").style.display = "none";
 
     sendmodalbtn.addEventListener("click", function (event) {
 
       //Block la fermeture de la modal et continu d'executer le code ci-dessous
       event.preventDefault();
-
       //stock dans la constante tout les élément ayant pour class "formData"
       const formdata = document.querySelectorAll(".formData");
 
 
-
       if (validationRegex(formdata)) {
-        // Si la variable de control est a true on affiche le
-        //message de confirmation d'inscription.
-        alert("Merci ! Votre réservation a été reçue.")
 
-        //et on ferme le formulaire
-        closeModal();
+        //Si la vérification du formulaire est ok alors on confirme l'inscription
+        confirmRegistration();
 
-        //Sinon on affiche une alerte pour préciser qu'il y a un problème sur le formulaire.
       } else {
-        alert("il y a un problems dans le formulaire")
       }
     })
   }
