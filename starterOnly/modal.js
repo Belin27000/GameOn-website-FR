@@ -85,8 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const stringRegex = /^[a-zA-Z-]+$/; //Regex champs nom & prénom
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; //Regex email
     const birthRegex = /^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/; //Regex Date
-    const colorErrMsg = '#F0C808'; //Couleur des messages d'erreur
+    const colorErrMsg = '#FF4E60'; //Couleur des messages d'erreur
     const SizeErrMsg = '12px';//Taille des messages d'erreur
+    const Bord = ('2px solid' + colorErrMsg);
 
 
     //Variable de controle
@@ -100,11 +101,14 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("firstNameErrorMSg").innerText = " Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
       document.getElementById("firstNameErrorMSg").style.fontSize = SizeErrMsg;
       document.getElementById("firstNameErrorMSg").style.color = colorErrMsg;
+      document.getElementById("first").style.border = Bord;
       control = false;
 
       //Sinon, on efface le message d'erreur et on continu
     } else {
       document.getElementById("firstNameErrorMSg").innerText = "";
+      document.getElementById("first").style.border = "none";
+
 
 
       //Vérifie si le Nom ne match pas avec stringRegex et si il y a plus de 2 caractères
@@ -116,11 +120,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("lastNameErrorMSg").innerText = " Veuillez entrer 2 caractères ou plus pour le champ du nom.";
         document.getElementById("lastNameErrorMSg").style.fontSize = SizeErrMsg;
         document.getElementById("lastNameErrorMSg").style.color = colorErrMsg;
+        document.getElementById("last").style.border = Bord;
+
         control = false;
 
         //Sinon, on efface le message d'erreur et on continu
       } else {
         document.getElementById("lastNameErrorMSg").innerText = "";
+        document.getElementById("last").style.border = "none";
+
 
 
         //Vérifie si l'email ne match pas avec emailRegex
@@ -132,11 +140,14 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("EmailErrorMSg").innerText = " Veuillez entrer une adresse email valide.";
           document.getElementById("EmailErrorMSg").style.fontSize = SizeErrMsg;
           document.getElementById("EmailErrorMSg").style.color = colorErrMsg;
+          document.getElementById("email").style.border = Bord;
+
           control = false;
 
           //Sinon, on efface le message d'erreur et on continu
         } else {
           document.getElementById("EmailErrorMSg").innerText = "";
+          document.getElementById("email").style.border = "none";
 
 
           //Vérifie si la date ne match pas birthRegex
@@ -147,11 +158,14 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("BdayErrorMSg").innerText = " Vous devez entrer votre date de naissance.";
             document.getElementById("BdayErrorMSg").style.fontSize = SizeErrMsg;
             document.getElementById("BdayErrorMSg").style.color = colorErrMsg;
+            document.getElementById("birthdate").style.border = Bord;
+
             control = false;
 
             //Sinon, on efface le message d'erreur et on continu
           } else {
-            document.getElementById("BdayErrorMSg").innerText = ""
+            document.getElementById("BdayErrorMSg").innerText = "";
+            document.getElementById("birthdate").style.border = "none";
 
 
             //controle si le nombre de tournoi selectionné et vide
@@ -162,11 +176,15 @@ document.addEventListener("DOMContentLoaded", function () {
               document.getElementById("QtyErrorMSg").innerText = " Veuillez choisir le nombre de tournoi auquel vous avez participé.";
               document.getElementById("QtyErrorMSg").style.fontSize = SizeErrMsg;
               document.getElementById("QtyErrorMSg").style.color = colorErrMsg;
+              document.getElementById("quantity").style.border = Bord;
+
               control = false;
 
               //Alors efface le message d'erreur et on continu
             } else {
               document.getElementById("QtyErrorMSg").innerText = "";
+              document.getElementById("quantity").style.border = "none";
+
 
               var a = 0; //Initialise notre variable de controle
 
@@ -191,15 +209,20 @@ document.addEventListener("DOMContentLoaded", function () {
               //on demande à selectionner une ville
               //et on passe notre variable controle à false
               if (a == 0) {
+
                 document.getElementById("LocationErr").innerText = "Vous devez selectionner une ville";
                 document.getElementById("LocationErr").style.fontSize = SizeErrMsg;
                 document.getElementById("LocationErr").style.color = colorErrMsg;
+                document.getElementById("cities").style.border = Bord;
+
                 control = false;
 
                 //Sinon si une ville à été selectionnée, notre variable a = 1
                 //Alors efface le message d'erreur et on continu 
               } else {
                 document.getElementById("LocationErr").innerText = "";
+                document.getElementById("cities").style.border = "none";
+
 
 
                 //On vérifie si la checkbox des contion est coché
@@ -210,8 +233,12 @@ document.addEventListener("DOMContentLoaded", function () {
                   document.getElementById("CondErr").innerText = "Vous devez accepter les conditions d'utilisation"
                   document.getElementById("CondErr").style.fontSize = SizeErrMsg;
                   document.getElementById("CondErr").style.color = colorErrMsg;
+                  document.getElementById("condition").style.border = Bord;
+
                   control = false;
                 }
+                document.getElementById("condition").style.border = "none";
+
               }
             }
           }
