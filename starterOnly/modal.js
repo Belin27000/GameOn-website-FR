@@ -21,69 +21,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   init();
 
-  function reset() {
-    btnchange = document.getElementById("sendmodal")
-    let modalControl
-    if (btnchange.value == "Fermer") {
-      btnchange.value = "C'est parti"
-
-      const formdata = document.querySelectorAll(".formData");
-      //variable d'initialisation
-      i = 0
-      //Pour chaque div "formadata, je la masque"
-      for (i = 0; i < formdata.length; i++) {
-
-        formdata[i].style.visibility = "visible"
-        formdata[0].children[2].value = ""
-        formdata[1].children[2].value = ""
-        formdata[2].children[2].value = ""
-        formdata[3].children[2].value = ""
-        formdata[4].children[2].value = ""
-
-        var a = 0; //Initialise notre variable de controle
-        // //Selectionne tous nos input
-        const radio = document.querySelectorAll('input[name="location"]');
-
-        // //Pour chaque input entre 0 et le nombre d'input de "location":
-        for (var b = 0; b < radio.length; b++) {
-
-          //   //On vérifie que l'input avec l'index i soit selectionné
-          //   //Si il est selectionné
-          if (radio[b].checked) {
-
-            //On le reset
-            radio[b].checked = false;
-          }
-        }
-        //initialise la checkbox des conditions d'utilisation
-        document.getElementById("checkbox1").checked = false;
-
-      }
-      textform = document.getElementById("thanks");
-      textform.innerHTML = "";
-    } else {
-      modalControl = false
-      return (modalControl)
-
-    }
-  }
-
 
 
   //Fermeture modal en utilisant display="none"
   function closeModal() {
-    console.log("Je ferme");
-
-
     const modalbg = document.querySelector(".bground");
     modalbg.style.display = "none";
 
-    init()
   }
 
   // launch modal form
   function launchModal() {
-    reset()
+
     const modalbg = document.querySelector(".bground");
     modalbg.style.display = "block";
 
