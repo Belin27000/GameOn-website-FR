@@ -4,35 +4,92 @@ document.addEventListener("DOMContentLoaded", function () {
   function init() {
     const modalBtn = document.querySelectorAll(".modal-btn");//selectionne tout les éléments qui on la classe .modal-btn
     const closeBtn = document.querySelectorAll(".close") //selectionne tout les élément qui on la classe .close
+    const navIcon = document.querySelectorAll(".icon");//selectionne tout les élément qui on la classe .icon
 
     // launch modal event
     // Pour chaque clique sur un élément ayant la class .btn, on lance la fonction launchModal
     modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
     // Pour chaque clique sur un élément ayant la class .btn, on lance la fonction closemodal
-    closeBtn.forEach((btn) => btn.addEventListener("click", closeModal));
 
+    closeBtn.forEach((btn) => btn.addEventListener("click", closeModal));
+    // Pour chaque clique sur un élément ayant la class .btn, on lance la fonction editNav
+    navIcon.forEach((btn) => btn.addEventListener("click", editNav));
 
     validation();
-
   }
 
   init();
 
+  function reset() {
+    btnchange = document.getElementById("sendmodal")
+    let modalControl
+    if (btnchange.value == "Fermer") {
+      btnchange.value = "C'est parti"
+
+      const formdata = document.querySelectorAll(".formData");
+      //variable d'initialisation
+      i = 0
+      //Pour chaque div "formadata, je la masque"
+      for (i = 0; i < formdata.length; i++) {
+
+        formdata[i].style.visibility = "visible"
+        formdata[0].children[2].value = ""
+        formdata[1].children[2].value = ""
+        formdata[2].children[2].value = ""
+        formdata[3].children[2].value = ""
+        formdata[4].children[2].value = ""
+
+        var a = 0; //Initialise notre variable de controle
+        // //Selectionne tous nos input
+        const radio = document.querySelectorAll('input[name="location"]');
+
+        // //Pour chaque input entre 0 et le nombre d'input de "location":
+        for (var b = 0; b < radio.length; b++) {
+
+          //   //On vérifie que l'input avec l'index i soit selectionné
+          //   //Si il est selectionné
+          if (radio[b].checked) {
+
+            //On le reset
+            radio[b].checked = false;
+          }
+        }
+        //initialise la checkbox des conditions d'utilisation
+        document.getElementById("checkbox1").checked = false;
+
+      }
+      textform = document.getElementById("thanks");
+      textform.innerHTML = "";
+    } else {
+      modalControl = false
+      return (modalControl)
+
+    }
+  }
+
+
 
   //Fermeture modal en utilisant display="none"
   function closeModal() {
+    console.log("Je ferme");
+
+
     const modalbg = document.querySelector(".bground");
     modalbg.style.display = "none";
 
+    init()
   }
 
   // launch modal form
   function launchModal() {
+    reset()
     const modalbg = document.querySelector(".bground");
     modalbg.style.display = "block";
+
   }
 
+  //Affiche ou ferme le menu en responsive
   function editNav() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -46,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //confirmation d'inscription
 
   function confirmRegistration() {
+
     //stock dans la constante tout les élément ayant pour class "formData"
     const formdata = document.querySelectorAll(".formData");
 
@@ -74,9 +132,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     //J'écoute mon boutton "Fermé" si on clique dessus, je lance "closeModal"
-    sendmodalbtn.addEventListener("click", function () {
-      closeModal()
-    })
+    if (btnchange.value == "Fermer") {
+      sendmodalbtn.addEventListener("click", function () {
+        closeModal();
+        //Recharge la page parent pour repartir sur une nouvelle inscription
+        location.reload();
+      })
+    }
+
   }
 
   // Controle avec regex
@@ -171,9 +234,9 @@ document.addEventListener("DOMContentLoaded", function () {
             //controle si le nombre de tournoi selectionné et vide
             //Sinon oui, on affiche le message d'erreur et on passe notre variable controle à False
             // 2eme enfants du 5 eme element de formData
-            if (formdata[4].children[2].value == "") {
+            if (formdata[4].children[2].value == "" || formdata[4].children[2].value > 99) {
 
-              document.getElementById("QtyErrorMSg").innerText = " Veuillez choisir le nombre de tournoi auquel vous avez participé.";
+              document.getElementById("QtyErrorMSg").innerText = " Veuillez choisir le nombre de tournoi auquel vous avez participé. (Max:99)";
               document.getElementById("QtyErrorMSg").style.fontSize = SizeErrMsg;
               document.getElementById("QtyErrorMSg").style.color = colorErrMsg;
               document.getElementById("quantity").style.border = Bord;
@@ -246,7 +309,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
     }
-
     if (control) {
       return true;
     } else {
@@ -256,13 +318,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validation() {
 
-
     let sendmodalbtn = document.getElementById("sendmodal");
     const modalbg = document.querySelector(".formdisplay");
-    console.log(modalbg);
+    //console.log(modalbg);
     //document.getElementById("confirm").style.display = "none";
 
     sendmodalbtn.addEventListener("click", function (event) {
+
 
       //Block la fermeture de la modal et continu d'executer le code ci-dessous
       event.preventDefault();

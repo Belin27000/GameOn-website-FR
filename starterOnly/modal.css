@@ -82,6 +82,11 @@ img {
     float: right;
     display: block;
   }
+
+  .responsive a {
+    display: block;
+  }
+
 }
 
 @media screen and (max-width: 768px) {
